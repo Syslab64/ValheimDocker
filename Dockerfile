@@ -22,6 +22,11 @@ RUN ./steamcmd/steamcmd.sh +quit && \
     mkdir -pv /home/steam/.steam/sdk64/ && \
     ln -s /home/steam/steamcmd/linux64/steamclient.so /home/steam/.steam/sdk64/steamclient.so
 
+COPY bepinexvalheim /home/steam/valheim/server
+
+# opens ports for multiplayer
+EXPOSE 2456-2457/udp
+
 # start the server main script
 ENTRYPOINT ["bash", "/home/steam/server.sh"]
 
