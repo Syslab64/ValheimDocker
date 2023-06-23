@@ -11,7 +11,8 @@ RUN useradd -m steam
 WORKDIR /home/steam
 USER steam
 
-COPY server.sh .
+COPY server_bepinex.sh .
+COPY bepinexvalheim ./bepinexvalheim
 
 # download steamcmd
 RUN mkdir steamcmd && cd steamcmd && \
@@ -22,11 +23,9 @@ RUN ./steamcmd/steamcmd.sh +quit && \
     mkdir -pv /home/steam/.steam/sdk64/ && \
     ln -s /home/steam/steamcmd/linux64/steamclient.so /home/steam/.steam/sdk64/steamclient.so
 
-COPY bepinexvalheim /home/steam/valheim/server
-
 # opens ports for multiplayer
-EXPOSE 2456-2457/udp
+EXPOSE 2456-2458/udp
 
 # start the server main script
-ENTRYPOINT ["bash", "/home/steam/server.sh"]
+ENTRYPOINT ["bash", "/home/steam/server_bepinex.sh"]
 
